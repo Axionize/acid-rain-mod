@@ -1,13 +1,13 @@
 plugins {
-	id 'fabric-loom' version '1.10-SNAPSHOT'
-	id 'maven-publish'
+	id("fabric-loom") version "1.10-SNAPSHOT"
+	id("maven-publish")
 }
 
-version = project.mod_version
-group = project.maven_group
+version = project.property("mod_version")
+group = project.property("maven_group")
 
 base {
-	archivesName = project.archives_base_name
+	archivesName.set(project.property("archives_base_name") as String)
 }
 
 repositories {
@@ -22,35 +22,34 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"modid" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
+		create("modid") {
+			sourceSet(sourceSets.getByName("main"))
+			sourceSet(sourceSets.getByName("client"))
 		}
 	}
-
 }
 
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
+	mappings("net.fabricmc:yarn:${project.property("yarn_mappings")}:v2")
+	modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
+
 }
 
-processResources {
-	inputs.property "version", project.version
+tasks.processResources {
+	inputs.property("version", project.version)
 
 	filesMatching("fabric.mod.json") {
-		expand "version": inputs.properties.version
+		expand("version" to inputs.properties["version"])
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+tasks.withType<JavaCompile>().configureEach {
+	options.release.set(21)
 }
 
 java {
@@ -63,20 +62,20 @@ java {
 	targetCompatibility = JavaVersion.VERSION_21
 }
 
-jar {
-	inputs.property "archivesName", project.base.archivesName
+tasks.jar {
+	inputs.property("archivesName", project.property("archives_base_name")) // More concise
 
 	from("LICENSE") {
-		rename { "${it}_${inputs.properties.archivesName}"}
+		rename { "${it}_${inputs.properties["archivesName"]}" }
 	}
 }
 
 // configure the maven publication
 publishing {
 	publications {
-		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
-			from components.java
+		create<MavenPublication>("mavenJava") {
+			artifactId = project.property("archives_base_name") as String
+			from(components["java"])
 		}
 	}
 
