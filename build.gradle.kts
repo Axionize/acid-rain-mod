@@ -22,7 +22,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		create("modid") {
+		create("acidrain") {
 			sourceSet(sourceSets.getByName("main"))
 			sourceSet(sourceSets.getByName("client"))
 		}
