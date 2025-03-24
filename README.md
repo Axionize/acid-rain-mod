@@ -54,3 +54,5 @@ The mod offers in-game configuration via commands:
 *   [ ] Add config to make it only affect rain and not water.
 *   [ ] Translations
 *   [ ] More than one random death message
+*   [ ] Per-world acid rain toggling
+*   [ ] Persistence (worlds/server remembers worlds with acid rain on/off)

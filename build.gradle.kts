@@ -36,7 +36,8 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
+	modImplementation(fabricApi.module("fabric-lifecycle-events-v1","${project.property("fabric_version")}"))
+	modImplementation(fabricApi.module("fabric-command-api-v2","${project.property("fabric_version")}"))
 
 }
 
