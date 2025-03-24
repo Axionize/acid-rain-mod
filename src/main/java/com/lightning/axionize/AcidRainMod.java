@@ -53,12 +53,12 @@ public class AcidRainMod implements ModInitializer {
 												isAcidEnabled = true;
 												damageIntervalTicks = IntegerArgumentType.getInteger(context, "interval");
 												damageAmount = FloatArgumentType.getFloat(context, "damage");
-												context.getSource().sendFeedback(() -> Text.literal(String.format("Acid rain/water enabled.  Damage: %.1f every %d ticks.", damageAmount, damageIntervalTicks)), true);
+												context.getSource().sendFeedback(() -> Text.literal(String.format("Acid rain/water enabled. Damage: %.1f every %d ticks.", damageAmount, damageIntervalTicks)), true);
 												return 1;
 											})))
 							.executes(context -> { // /acid on  (with defaults)
 								isAcidEnabled = true;
-								context.getSource().sendFeedback(() -> Text.literal(String.format("Acid rain/water enabled.  Damage: %.1f every %d ticks.", damageAmount, damageIntervalTicks)), true);
+								context.getSource().sendFeedback(() -> Text.literal(String.format("Acid rain/water enabled. Damage: %.1f every %d ticks.", damageAmount, damageIntervalTicks)), true);
 								return 1;
 							}))
 					.then(CommandManager.literal("off")
